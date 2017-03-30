@@ -7,6 +7,7 @@ namespace Assets.Scripts
 {
     public class Globalclass
     {
+        // Global class to allow the score to pass between multipe scenes
         public static int globalHighscore = 0;
     }
 }

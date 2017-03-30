@@ -1,16 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Thalmic.Myo;
 using UnityEngine;
 
 public class Tetramino : MonoBehaviour {
 
-    float fall = 0;
-    public float fallSpeed = 1;
+    // Script to handle all features, functions and characteristics of each tetramino
 
+    public float fall = 0;
+    public float fallSpeed = 1;
+    //public ThalmicMyo thalmicMyo;
+    //public GameObject myo = null;
+    //private Pose _lastPose = Pose.Unknown;
     public int individualScore = 100;
 
     public float individualTime;
-    
+
     // Use this for initialization
     void Start() {
 
@@ -40,7 +45,7 @@ public class Tetramino : MonoBehaviour {
         //Move right once
         if (Input.GetKeyDown(KeyCode.RightArrow) || (Input.GetKeyDown(KeyCode.D)))
         {
-            transform.position += new Vector3(1, 0, 0);
+            transform.position += new UnityEngine.Vector3(1, 0, 0);
 
             if (CheckIsValidPosition())
             {
@@ -48,13 +53,13 @@ public class Tetramino : MonoBehaviour {
             }
             else
             {
-                transform.position += new Vector3(-1, 0, 0);
+                transform.position += new UnityEngine.Vector3(-1, 0, 0);
             }
         }
         //Move right continously
         else if (Input.GetKey(KeyCode.RightArrow) && Input.GetKey(KeyCode.LeftShift)  || (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.LeftShift)))
         {
-            transform.position += new Vector3(1, 0, 0);
+            transform.position += new UnityEngine.Vector3(1, 0, 0);
 
             if (CheckIsValidPosition())
             {
@@ -62,14 +67,14 @@ public class Tetramino : MonoBehaviour {
             }
             else
             {
-                transform.position += new Vector3(-1, 0, 0);
+                transform.position += new UnityEngine.Vector3(-1, 0, 0);
             }
         }
         //Move left once
         else if (Input.GetKeyDown(KeyCode.LeftArrow) || (Input.GetKeyDown(KeyCode.A)))
         {
             
-            transform.position += new Vector3(-1, 0, 0);
+            transform.position += new UnityEngine.Vector3(-1, 0, 0);
 
             if (CheckIsValidPosition())
             {
@@ -77,14 +82,14 @@ public class Tetramino : MonoBehaviour {
             }
             else
             {
-                transform.position += new Vector3(1, 0, 0);
+                transform.position += new UnityEngine.Vector3(1, 0, 0);
             }
         }
         //Move left continously
         else if (Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.LeftShift) || (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.LeftShift)))
         {
 
-            transform.position += new Vector3(-1, 0, 0);
+            transform.position += new UnityEngine.Vector3(-1, 0, 0);
 
             if (CheckIsValidPosition())
             {
@@ -92,7 +97,7 @@ public class Tetramino : MonoBehaviour {
             }
             else
             {
-                transform.position += new Vector3(1, 0, 0);
+                transform.position += new UnityEngine.Vector3(1, 0, 0);
             }
         }
         //Rotate clockwise
@@ -125,7 +130,7 @@ public class Tetramino : MonoBehaviour {
         //Speed up
         else if (Input.GetKeyDown(KeyCode.Space) || Time.time - fall >= fallSpeed)
         {
-            transform.position += new Vector3(0, -1, 0);
+            transform.position += new UnityEngine.Vector3(0, -1, 0);
 
             if (CheckIsValidPosition())
             {
@@ -133,7 +138,7 @@ public class Tetramino : MonoBehaviour {
             }
             else
             {
-                transform.position += new Vector3(0, 1, 0);
+                transform.position += new UnityEngine.Vector3(0, 1, 0);
 
                 FindObjectOfType<Game>().DeleteRow();
 
@@ -156,7 +161,7 @@ public class Tetramino : MonoBehaviour {
         //Move down continously
         else if (Input.GetKey(KeyCode.Space) && Input.GetKey(KeyCode.LeftShift) || Time.time - fall >= fallSpeed)
         {
-            transform.position += new Vector3(0, -1, 0);
+            transform.position += new UnityEngine.Vector3(0, -1, 0);
 
             if (CheckIsValidPosition())
             {
@@ -164,7 +169,7 @@ public class Tetramino : MonoBehaviour {
             }
             else
             {
-                transform.position += new Vector3(0, 1, 0);
+                transform.position += new UnityEngine.Vector3(0, 1, 0);
 
                 FindObjectOfType<Game>().DeleteRow();
 
@@ -188,7 +193,7 @@ public class Tetramino : MonoBehaviour {
         //Hold Piece
         else if (Input.GetKey(KeyCode.Space) || Time.time - fall >= fallSpeed)
         {
-            transform.position += new Vector3(0, 0, 0);
+            transform.position += new UnityEngine.Vector3(0, 0, 0);
 
             if (CheckIsValidPosition())
             {
@@ -196,7 +201,7 @@ public class Tetramino : MonoBehaviour {
             }
             else
             {
-                transform.position += new Vector3(0, 0, 0);
+                transform.position += new UnityEngine.Vector3(0, 0, 0);
 
                 FindObjectOfType<Game>().DeleteRow();
 
@@ -209,7 +214,7 @@ public class Tetramino : MonoBehaviour {
         }
     }
 
-    bool CheckIsValidPosition() 
+    public bool CheckIsValidPosition() 
         {
             foreach (Transform mino in transform)
             {
@@ -227,5 +232,4 @@ public class Tetramino : MonoBehaviour {
              }
         return true;
     }
-
 }

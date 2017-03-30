@@ -6,54 +6,69 @@ using UnityEngine.UI;
 
 public class Game : MonoBehaviour {
 
+    // Pixel Width
     public static int gridWidth = 10;
+    // Pixl Height
     public static int gridHeight = 20;
+    // Initial score
     public static int highscore = 0;
 
+    
+    // This allows us to map the score to an object in Unity
     public Text hud_score;
-
+    // 
     public int numberOfRowsThisTurn = 0;
-
+    // Sets the grid height and width
     public static Transform[,] grid = new Transform[gridWidth, gridHeight];
-
+    // Continously updates the UI of the game with the score as it goes up
     public void UpdateUI()
     {
         hud_score.text = highscore.ToString();
     }
-
+    // Method for how the score will be updated
     public void UpdateScore()
     {
         if (numberOfRowsThisTurn > 0)
         {
             if (numberOfRowsThisTurn == 1)
             {
+                // 1 Row equals 100 points
                 highscore += 100;
             }
             else if (numberOfRowsThisTurn == 2)
             {
+                // 2 rows equals 200 points plus a 50% points bonus totalling 300 points (100 bonus points)
                 highscore += 300;
             }
             else if (numberOfRowsThisTurn == 3)
             {
+                // 3 rows equals 300 points plus a 75% points bonus totalling 525 points (225 bonus points)
                 highscore += 525;
             }
             else if(numberOfRowsThisTurn == 4)
             {
+                // 4 rowsequals 400 points plus a 100% points bonus for achieveing a Tetris totalling 800 points (400 bonus points)
                 highscore += 800;
             }
-
+            // Reseting numberOfRowsThisTurn so that scoring will not continously go up when the player has not actually
+            // done anything to deserve those points
             numberOfRowsThisTurn = 0;
         }
     }
 
 	// Use this for initialization
 	void Start () {
+        // This initially spawns a tetramino when the game is started
+        // Call the method we will continue using for spawning tetraminos
         SpawnNextTetromino();
+        
 	}
 
     void Update()
     {
+        // Continously updates the score with points
         UpdateScore();
+        // Continously updates the UI with the new score
         UpdateUI();
     }
 
@@ -74,6 +89,7 @@ public class Game : MonoBehaviour {
         return false;
     }
 
+    // Method for tetramino spawning
     public void SpawnNextTetromino()
     {
         GameObject nextTetramino = (GameObject)Instantiate(Resources.Load(GetRandomTetramino(), typeof(GameObject)), new Vector2(5.0f, 20.0f), Quaternion.identity);
@@ -187,6 +203,7 @@ public class Game : MonoBehaviour {
         return new Vector2(Mathf.Round(pos.x), Mathf.Round(pos.y));
     }
 
+    // This is the method that decides both what type of tetramino will spawn and what colour it will be
     string GetRandomTetramino()
     {
         int RandomTetramino = Random.Range(1, 11);
@@ -585,10 +602,16 @@ public class Game : MonoBehaviour {
         return RandomTetraminoName;
     }
 
+    // Called when Tetraminos fill up the whole grid and no more can be placed
     public void GameOver()
     {
+        // Writes to a global variable so that any scene can display this score
         Globalclass.globalHighscore = highscore;
+        // Load into the GameOver scene which displays the final score and asks the player if they want to play again?
+        // Which reloads the Level scene
         Application.LoadLevel("GameOver");
     }
-
 }
+
+
+
