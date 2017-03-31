@@ -67,11 +67,11 @@ public class ThalmicHub : MonoBehaviour
         // Ensure that there is only one ThalmicHub.
         if (_instance != null) {
 #if UNITY_EDITOR
-            EditorUtility.DisplayDialog("Can only have one ThalmicHub",
-                                        "Your scene contains more than one ThalmicHub. Remove all but one ThalmicHub.",
+            EditorUtility.DisplayDialog("Re-entering Tetris level",
+                                        "Warning! Play again has caused the focus to move off the screen so click onto it again in order to regain control of the tetramino again",
                                         "OK");
 #endif
-            Destroy (this.gameObject);
+            //Destroy (this.gameObject);
             return;
         } else {
             _instance = this;

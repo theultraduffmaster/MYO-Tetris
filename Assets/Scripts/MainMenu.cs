@@ -20,4 +20,11 @@ public class MainMenu : MonoBehaviour {
         Application.LoadLevel("Score");
 
     }
+
+    public void Rules()
+    {
+        // Loads the score scene
+        Application.LoadLevel("Rules");
+
+    }
 }

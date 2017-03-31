@@ -100,7 +100,6 @@ Assets/Scripts/MenuSystem.cs
 Assets/Scripts/Myo.cs
 Assets/Scripts/Score.cs
 Assets/Scripts/Tetramino.cs
-Assets/Scripts/TetraminoController.cs
 -r:"C:\Program Files\Unity\Editor\Data\MonoBleedingEdge\lib\mono\unity\System.Runtime.Serialization.dll"
 -r:"C:\Program Files\Unity\Editor\Data\MonoBleedingEdge\lib\mono\unity\System.Xml.Linq.dll"
 -r:"C:\Program Files\Unity\Editor\Data\MonoBleedingEdge\lib\mono\unity\UnityScript.dll"

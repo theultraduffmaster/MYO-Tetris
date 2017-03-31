@@ -27,6 +27,7 @@ public class Tetramino : MonoBehaviour {
         UpdateIndividualScore();
     }
 
+    // Used to calculate score depending on time
     void UpdateIndividualScore()
     {
         if (individualTime < 1)
@@ -40,6 +41,7 @@ public class Tetramino : MonoBehaviour {
         }
     }
 
+    // Checks for keyboard inputs
     void CheckUserInput()
     {
         //Move right once
@@ -213,7 +215,7 @@ public class Tetramino : MonoBehaviour {
             fall = Time.time;
         }
     }
-
+    // Used to make sure a piece can move into a certain place
     public bool CheckIsValidPosition() 
         {
             foreach (Transform mino in transform)
@@ -231,5 +233,97 @@ public class Tetramino : MonoBehaviour {
                 }
              }
         return true;
+    }
+    // Method that will be called by MYO for same functionality as keyboard inputs
+    // Move tetramino right once
+    public void MoveRightOnce()
+    {
+        transform.position += new UnityEngine.Vector3(1, 0, 0);
+
+        if (CheckIsValidPosition())
+        {
+            FindObjectOfType<Game>().UpdateGrid(this);
+        }
+        else
+        {
+            transform.position += new UnityEngine.Vector3(-1, 0, 0);
+        }
+    }
+    // Method that will be called by MYO for same functionality as keyboard inputs
+    // Mobe tetramino left once
+    public void MoveLeftOnce()
+    {
+        transform.position += new UnityEngine.Vector3(-1, 0, 0);
+
+        if (CheckIsValidPosition())
+        {
+            FindObjectOfType<Game>().UpdateGrid(this);
+        }
+        else
+        {
+            transform.position += new UnityEngine.Vector3(1, 0, 0);
+        }
+    }
+    // Method that will be called by MYO for same functionality as keyboard inputs
+    // Rotate tetramino 90 degrees
+    public void RotateClockwise()
+    {
+        transform.Rotate(0, 0, 90);
+
+        if (CheckIsValidPosition())
+        {
+            FindObjectOfType<Game>().UpdateGrid(this);
+        }
+        else
+        {
+            transform.Rotate(0, 0, -90);
+        }
+    }
+    // Method that will be called by MYO for same functionality as keyboard inputs
+    // Rotate tetramino -90 degrees
+    public void RotateCounterClockwise()
+    {
+        transform.Rotate(0, 0, -90);
+        if (CheckIsValidPosition())
+        {
+            FindObjectOfType<Game>().UpdateGrid(this);
+        }
+        else
+        {
+
+        }
+    }
+    // Method that will be called by MYO for same functionality as keyboard inputs
+    // Moves tetraminos down 1 space faster
+    public void SpeedUp()
+    {
+
+        transform.position += new UnityEngine.Vector3(0, -1, 0);
+
+        if (CheckIsValidPosition())
+        {
+            FindObjectOfType<Game>().UpdateGrid(this);
+        }
+        else
+        {
+            transform.position += new UnityEngine.Vector3(0, 1, 0);
+
+            FindObjectOfType<Game>().DeleteRow();
+
+            if (FindObjectOfType<Game>().CheckIsAboveGrid(this))
+            {
+                FindObjectOfType<Game>().GameOver();
+            }
+
+
+
+            FindObjectOfType<Game>().SpawnNextTetromino();
+
+            Game.highscore += individualScore;
+
+            enabled = false;
+        }
+
+        fall = Time.time;
     }
 }

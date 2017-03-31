@@ -20,6 +20,9 @@ public class Game : MonoBehaviour {
     public int numberOfRowsThisTurn = 0;
     // Sets the grid height and width
     public static Transform[,] grid = new Transform[gridWidth, gridHeight];
+
+    public Transform NewGrid;
+
     // Continously updates the UI of the game with the score as it goes up
     public void UpdateUI()
     {
@@ -72,6 +75,7 @@ public class Game : MonoBehaviour {
         UpdateUI();
     }
 
+    // Game will end if a tetramino spawns above grid so this will check for that eventuality
     public bool CheckIsAboveGrid(Tetramino tetramino)
     {
         for (int x = 0; x <gridWidth; ++x)
@@ -94,7 +98,7 @@ public class Game : MonoBehaviour {
     {
         GameObject nextTetramino = (GameObject)Instantiate(Resources.Load(GetRandomTetramino(), typeof(GameObject)), new Vector2(5.0f, 20.0f), Quaternion.identity);
     }
-	
+	// Method for detecting if a row is filled in every space
     public bool IsFullRowAt (int y)
     {
         for (int x = 0; x < gridWidth; ++x)
@@ -109,7 +113,7 @@ public class Game : MonoBehaviour {
         return true;
     }
 
-
+    // Method to delete tetraminos
     public void DeleteMinoAt (int y)
     {
         for (int x=0; x <gridWidth; ++x)
@@ -120,6 +124,7 @@ public class Game : MonoBehaviour {
         }
     }
 
+    // Updates all tetraminos to move 1 square down
     public void MoveRowDown(int y)
     {
         for (int x = 0; x < gridWidth; ++x)
@@ -132,7 +137,7 @@ public class Game : MonoBehaviour {
             }
         }
     }
-
+    // Moves all rows if more than 1 needs to move
     public void MoveAllRowsDown (int y)
     {
         for (int i = y; i < gridHeight; ++i)
@@ -140,7 +145,7 @@ public class Game : MonoBehaviour {
             MoveRowDown(i);
         }
     }
-
+    // method to delete rows
     public void DeleteRow ()
     {
         for (int y = 0; y < gridHeight; ++y)
@@ -154,6 +159,7 @@ public class Game : MonoBehaviour {
         }
     }
 
+    // updates the grid with the new positions of tetraminos
     public void UpdateGrid (Tetramino tetramino)
     {
         for(int y = 0; y < gridHeight; ++y)
@@ -181,6 +187,7 @@ public class Game : MonoBehaviour {
         }
     }
 
+    // Transforms the grid to handle the new piece places
     public Transform GetTransformAtGridPosition(Vector2 pos)
     {
         if (pos.y > gridHeight - 1)
@@ -193,11 +200,14 @@ public class Game : MonoBehaviour {
         }
     }
 
+    
+    // checks if the pieces are still inside the grid
     public bool CheckIsInsideGrid(Vector2 pos)
     {
         return ((int)pos.x >= 0 && (int)pos.x < gridWidth && (int)pos.y >= 0);
     }
 
+    // Math function for rounding all x and y positions to full numbers for better placement of tetraminos
     public Vector2 Round (Vector2 pos)
     {
         return new Vector2(Mathf.Round(pos.x), Mathf.Round(pos.y));
